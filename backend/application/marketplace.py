@@ -3,7 +3,6 @@ from flask_cors import cross_origin
 from .database import mongo
 
 marketplace = Blueprint("marketplace", __name__)
-db = mongo.db
 
 @marketplace.route('/getMarketplace')
 def getMarketplace():

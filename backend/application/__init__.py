@@ -6,6 +6,7 @@ def create_app():
     app = Flask(__name__)
     app.config["SECRET_KEY"] = "sampleSecretKey"
     app.config["MONGO_URI"] =  "mongodb://localhost:27017/udyam"
+    app.config['CORS_HEADERS'] = 'Content-Type'
     mongo.init_app(app)
     CORS(app)
 
