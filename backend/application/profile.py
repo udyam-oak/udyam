@@ -14,7 +14,7 @@ def setAvatar():
     uname = request.args.get('username')
     existing_doc = db.users.find({'username': uname})
     if existing_doc:
-        return db.proflies.update_one(
+        return db.users.update_one(
             {'username':uname},
             {'$set':{'avatar_url':url}}
         )
