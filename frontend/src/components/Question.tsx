@@ -15,6 +15,7 @@ const Question = () => {
   const [q, setQ] = useState(0);
   const [multiplier, setMulti] = useState(1);
   const [coinB, setCoinBoost] = useState(0);
+  const [points, setPoints] = useState(0);
 
   const [time, setTime] = useState(0);
   const [isRunning, setRuning] = useState(false);
@@ -109,6 +110,18 @@ const Question = () => {
     return formattedDate;
   }
   const sendData = () => {
+    axios
+      .get("http://127.0.0.1:5000/calculateTotalPoints", {
+        params: {
+          name: user,
+          num_correct_answers: score,
+          total_time_taken: time,
+          multiplier_activated: false,
+        },
+      })
+      .then((res) => {
+        setPoints(res.data.points);
+      });
     axios.get("http://127.0.0.1:5000/storeUserChallengeResult", {
       params: {
         challenge_id: id,
