@@ -28,6 +28,7 @@ def setAvatar():
 @cross_origin()
 def getAvatar():
     uname = request.args.get('username')
+    
     user = db.users.find_one({'name': uname}, {'_id': 0, 'avatar_url': 1})
 
     if user:
