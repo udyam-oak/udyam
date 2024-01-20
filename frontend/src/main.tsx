@@ -7,6 +7,7 @@ import Challenge from "./components/Challenge.tsx";
 import Marketplace from "./components/Marketplace.tsx";
 import Navbar from "./components/Navbar.tsx";
 import Profile from "./components/Profile.tsx";
+import Login from "./components/Login.tsx";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
@@ -17,6 +18,7 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
         <Route path="/challenge" element={<Challenge />} />
         <Route path="/marketplace" element={<Marketplace />} />
         <Route path="/user/:id" element={<Profile />} />
+        <Route path="/login" element={<Login />} />
       </Routes>
     </BrowserRouter>
   </React.StrictMode>

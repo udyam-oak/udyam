@@ -43,7 +43,7 @@ const Profile = () => {
     <>
       <div className="flex gap-10 w-screen h-screen justify-center mt-10">
         <div>
-          <div className="w-[500px] h-[500px] bg-[#EBEBEB]">
+          <div className="w-[500px] h-[500px] bg-[#EBEBEB] flex justify-center items-center">
             {avatar && (
               <Avatar
                 animationSrc="https://readyplayerme.github.io/visage/male-idle.glb"
@@ -139,7 +139,10 @@ const Profile = () => {
               </Avatar>
             )}
             {!avatar && (
-              <button onClick={() => setAvatarCreator(true)}>
+              <button
+                onClick={() => setAvatarCreator(true)}
+                className="text-center px-10 py-5 bg-[#E0BBE6]"
+              >
                 Create Avatar
               </button>
             )}
@@ -181,7 +184,7 @@ const Profile = () => {
           )}
         </div>
         <div>
-          <div>
+          <div className="font-medium pb-10 flex flex-col gap-4">
             Challenges yearly review
             <HeatMap
               value={value}
@@ -199,7 +202,7 @@ const Profile = () => {
               }}
             />
           </div>
-          <div></div>
+          <div>Badges</div>
         </div>
       </div>
     </>

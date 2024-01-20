@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, redirect, url_for, session
+from flask import Blueprint, request
 from flask_cors import cross_origin
 from bcrypt import hashpw, gensalt
 from .database import mongo
@@ -6,7 +6,18 @@ from .database import mongo
 auth = Blueprint("auth", __name__)  
 db = mongo.db
 
-@auth.route("/account")
+@auth.route("/login", methods=["GET", "POST"])
 @cross_origin()
-def account():
-    return {"text": "Account Page"}
+def login():
+  if request.method == "POST":
+    name = request.form.get("name")
+    password = request.form.get("password")
+    user = db.users.find_one({"name": name})
+
+    if user:
+      if hashpw(password.encode("utf-8"), user["password"]) == user["password"]:
+        return {"success": True}
+      
+      return {"success": False, "error": "Wrong Password"}
+    
+    return {"success": False, "error": "Name not found"}
