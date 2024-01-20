@@ -18,7 +18,7 @@ def getMarketplace():
 @cross_origin()
 def getPoints():
     uname = request.args.get('name')
-    document = db.users.collection.find_one({"name": uname})
+    document = db.students.find_one({"name": uname})
 
     if document:
         points_value = int(document["points"])

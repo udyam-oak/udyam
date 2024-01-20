@@ -15,11 +15,13 @@ def create_app():
     from .challenges import challenges
     from .marketplace import marketplace
     from .profile import profile
+    from .teacher import teacher
     
     app.register_blueprint(auth, url_prefix="/")
     app.register_blueprint(views, url_prefix="/")
     app.register_blueprint(challenges, url_prefix="/")
     app.register_blueprint(marketplace, url_prefix="/")
+    app.register_blueprint(profile, url_prefix='/')
     app.register_blueprint(profile, url_prefix='/')
 
     return app

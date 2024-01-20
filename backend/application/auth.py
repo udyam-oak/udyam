@@ -1,6 +1,6 @@
 from flask import Blueprint, request
 from flask_cors import cross_origin
-from bcrypt import hashpw, gensalt
+from bcrypt import hashpw
 from .database import mongo
 
 auth = Blueprint("auth", __name__)  
@@ -11,7 +11,7 @@ db = mongo.db
 def login():
   name = request.args.get("name")
   password = request.args.get("password")
-  user = db.users.find_one({"name": name}, {"_id": 0, "name": 1, "password": 1})
+  user = db.students.find_one({"name": name}, {"_id": 0, "name": 1, "password": 1})
 
   if user:
     if hashpw(password.encode("utf-8"), user["password"]) == user["password"]:
