@@ -2,5 +2,9 @@ from flask import Blueprint, render_template, session, redirect, url_for, reques
 from flask_cors import cross_origin
 from .database import mongo
 
-views = Blueprint("views", __name__)
+marketplace = Blueprint("marketplace", __name__)
 db = mongo.db
+
+@marketplace.route('/getMarketplace')
+def getMarketplace():
+    return db.marketplace({})
