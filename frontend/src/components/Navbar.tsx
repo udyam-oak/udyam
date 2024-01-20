@@ -11,7 +11,7 @@ const Navbar = () => {
         </div>
         <ul className='flex'>
             <li className=" text-[#263238] mx-3 p-2 duration-300 hover:text-[#263238] hover:bg-[#E0BBE6] cursor-pointer rounded-lg"><Link className='hover:text-[#263238] duration-300 hover:bg-[#E0BBE6] rounded-lg' to="/">Home</Link></li>
-            <li className=" text-[#263238] mx-3 p-2 duration-300 hover:text-[#263238] hover:bg-[#E0BBE6] cursor-pointer rounded-lg"><Link className='hover:text-[#263238] duration-300 hover:bg-[#E0BBE6] rounded-lg' to="/challenge">Challanges</Link></li>
+            <li className=" text-[#263238] mx-3 p-2 duration-300 hover:text-[#263238] hover:bg-[#E0BBE6] cursor-pointer rounded-lg"><Link className='hover:text-[#263238] duration-300 hover:bg-[#E0BBE6] rounded-lg' to="/challenge">Challenges</Link></li>
             <li className=" text-[#263238] mx-3 p-2 duration-300 hover:text-[#263238] hover:bg-[#E0BBE6] cursor-pointer rounded-lg"><Link className='hover:text-[#263238] duration-300 hover:bg-[#E0BBE6] rounded-lg' to="/marketplace">Marketplace</Link></li>
             <li className=" text-[#263238] mx-3 p-2 duration-300 hover:text-[#263238] hover:bg-[#E0BBE6] cursor-pointer rounded-lg"><Link className='hover:text-[#263238] duration-300 hover:bg-[#E0BBE6] rounded-lg' to="/login">Login</Link></li>
         </ul>

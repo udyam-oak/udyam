@@ -13,19 +13,14 @@ def getChallenges():
 @challenges.route('/getLeaderboard')
 @cross_origin()
 def leaderboard():
-    challenge_id = None
     return {}
 
 @challenges.route('/getUserRank')
 @cross_origin()
 def userRank():
-    challenge_id = None
-    email = None
     return {}
 
 @challenges.route('/getQuestions')
 @cross_origin()
 def getQuestions():
-    challenge_id = None
-    rating = None
     return {}
