@@ -14,7 +14,7 @@ const Navbar = () => {
     <>
       <nav className="flex items-center justify-between text-black h-14 font-poppins">
         <div className="flex items-center">
-          <img className="mx-3 w-10" src="src\assets\insight.png" />
+          <img className="mx-3 w-10" src="src\assets\analyzer.png" />
           <span className="font-bold text-xl text-[#263238]">UDYAM</span>
         </div>
         <ul className="flex">

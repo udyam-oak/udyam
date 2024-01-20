@@ -80,6 +80,7 @@ for name, password in students.items():
                        "challenges_attempted": [],
                        "total_points": 0})
 
+
 db.teachers.insert_one({"name": "Ruchi",
                         "password": hashpw(teachers["Ruchi"].encode("utf-8"), gensalt()),
                         "challenges_created": [2]})

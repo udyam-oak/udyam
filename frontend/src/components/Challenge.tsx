@@ -1,13 +1,25 @@
-import React from "react";
-import ChallengeCard from "./ChallengeCard.tsx"
-
+import React, { useEffect, useState } from "react";
+import ChallengeCard from "./ChallengeCard.tsx";
+import axios from "axios";
 const Challenge = () => {
-  return(
+  const [challenges, setChallenges] = useState({});
+
+  useEffect(() => {
+    axios.get("http://127.0.0.1:5000/getChallenges").then((res) => {
+      setChallenges(res.data);
+    });
+  }, []);
+  return (
     <>
-    <div className="flex flex-col gap-10 items-center mt-16">
-    <ChallengeCard challengeName="Math 101" points="+ 20 pts"/>
-    <ChallengeCard challengeName="Math 101" points="+ 20 pts"/>
-    </div>
+      <div className="flex flex-col gap-10 items-center mt-16">
+        {Object.entries(challenges).map(([challengeId, value]) => (
+          <ChallengeCard
+            id={challengeId}
+            challengeName={value}
+            points="+20 pts"
+          />
+        ))}
+      </div>
     </>
   );
 };

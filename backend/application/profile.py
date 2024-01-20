@@ -28,13 +28,24 @@ def setAvatar():
 @cross_origin()
 def getAvatar():
     uname = request.args.get('username')
-    return db.find_one({'username': uname}, {'_id': 0, 'avatar_url': 1})
+    
+    user = db.users.find_one({'name': uname}, {'_id': 0, 'avatar_url': 1})
+
+    if user:
+        return jsonify({'avatar_url': user['avatar_url']})
+    else:
+        return jsonify({'error': 'User not found'}), 404
+
 
 @profile.route("/")
 @cross_origin()
 def getHeatmapData():
     name = request.args.get("name")
 
+@profile.route("/")
+@cross_origin()
+def getHeatmapData():
+    name = request.args.get("name")
     challenges_attempted = db.users.find_one({"name": name}, {"_id": 0, "challenges_attempted": 1})
     dates = [challenge["date_attempted"] for challenge in challenges_attempted]
     heatmap_data = Counter(dates)
