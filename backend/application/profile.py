@@ -28,6 +28,7 @@ def setAvatar():
 @cross_origin()
 def getAvatar():
     uname = request.args.get('username')
+    
     user = db.users.find_one({'name': uname}, {'_id': 0, 'avatar_url': 1})
 
     if user:
@@ -40,7 +41,6 @@ def getAvatar():
 @cross_origin()
 def getHeatmapData():
     name = request.args.get("name")
-
     challenges_attempted = db.users.find_one({"name": name}, {"_id": 0, "challenges_attempted": 1})
     dates = [challenge["date_attempted"] for challenge in challenges_attempted]
     heatmap_data = Counter(dates)

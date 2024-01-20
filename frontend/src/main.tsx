@@ -9,6 +9,8 @@ import Navbar from "./components/Navbar.tsx";
 import Profile from "./components/Profile.tsx";
 import Login from "./components/Login.tsx";
 import { Toaster } from "sonner";
+import Question from "./components/Question.tsx";
+import Leaderboard from "./components/Leaderboard.tsx";\
 import Marketplacenx from "./components/Marketplacenx.tsx";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
@@ -20,6 +22,8 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
         <Route path="/challenge" element={<Challenge />} />
         <Route path="/marketplace" element={<Marketplace />} />
         <Route path="/user/:id" element={<Profile />} />
+        <Route path="/challenge/:id" element={<Question />} />
+        <Route path="/challenge/:id/leaderboard" element={<Leaderboard />} />
         <Route path="/login" element={<Login />} />
         <Route path="/marketplacenx" element={<Marketplacenx />} />
       </Routes>

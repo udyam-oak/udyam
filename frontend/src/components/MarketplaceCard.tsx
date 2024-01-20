@@ -5,6 +5,7 @@ const MarketplaceCard = ({image, cardname, price}) => {
     
   return (
     <>
+
     <div className='border border-[#263238] w-40 h-fit rounded-xl m-16 text-center flex flex-col p-3'>
         <img src={image} alt="" className='rounded-t-xl h-fit'/>
         <div>
