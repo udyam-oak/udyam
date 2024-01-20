@@ -7,18 +7,16 @@ profile = Blueprint("profile", __name__)
 
 db = mongo
 
-@profile.route('setAvatar', methods=['GET'])
-@cross_origin
+@profile.route('/setAvatar', methods=['GET'])
+@cross_origin()
 def setAvatar():
     url = request.args.get('avatar_url')
     uname = request.args.get('username')
-    existing_doc = db.profiles.find({'username': uname})
+    existing_doc = db.users.find({'username': uname})
     if existing_doc:
-        return db.proflies.update_one(
+        return db.users.update_one(
             {'username':uname},
             {'$set':{'avatar_url':url}}
         )
     else:
         return {'error':'Uname Not found in the profiles.'}
-
-    
