@@ -28,5 +28,4 @@ def setAvatar():
 def getAvatar():
     uname = request.args.get('username')
     return db.find_one({'username': uname}, {'_id': 0, 'avatar_url': 1})
-    
 
