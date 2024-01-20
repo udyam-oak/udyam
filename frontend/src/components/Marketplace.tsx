@@ -9,11 +9,11 @@ const Marketplace = () => {
     <br />
     <span className="text-5xl">Power-Ups</span>
     <div className="flex flex-wrap items-center justify-center">
-    <MarketplaceCard price="$ 250 pts" image="$nbsp;" cardname="Coin UnBoost"/>
-    <MarketplaceCard price="$ 250 pts" image="$nbsp;" cardname="Coin UnBoost"/>
-    <MarketplaceCard price="$ 250 pts" image="$nbsp;" cardname="Coin UnBoost"/> 
-    <MarketplaceCard price="$ 250 pts" image="$nbsp;" cardname="Coin UnBoost"/>
-    <MarketplaceCard price="$ 250 pts" image="$nbsp;" cardname="Coin UnBoost"/>
+
+    <MarketplaceCard price="$ 250 pts" image="src\assets\2x.png" cardname="Points Multiplier"/>
+    <MarketplaceCard price="$ 250 pts" image="src\assets\snowflake.png" cardname="Time Freeze"/>
+    <MarketplaceCard price="$ 250 pts" image="src\assets\hygiene.png" cardname="Insurance"/>
+
     
 
     </div>

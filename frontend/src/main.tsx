@@ -10,7 +10,7 @@ import Profile from "./components/Profile.tsx";
 import Login from "./components/Login.tsx";
 import { Toaster } from "sonner";
 import Question from "./components/Question.tsx";
-import Leaderboard from "./components/Leaderboard.tsx";
+import Leaderboard from "./components/Leaderboard.tsx";\
 import Marketplacenx from "./components/Marketplacenx.tsx";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
