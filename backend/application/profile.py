@@ -12,7 +12,7 @@ db = mongo
 def setAvatar():
     url = request.args.get('avatar_url')
     uname = request.args.get('username')
-    existing_doc = db.profiles.find({'username': uname})
+    existing_doc = db.users.find({'username': uname})
     if existing_doc:
         return db.proflies.update_one(
             {'username':uname},
