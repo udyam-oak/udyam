@@ -10,7 +10,7 @@ db = mongo.db
 def getChallenges():
     challenges = {}
 
-    for challenge in db.challenges.find():
+    for challenge in db.challenges.find({}, {"_id": 0, "challenge_id": 1, "title": 1}):
         challenges[challenge["challenge_id"]] = challenge["title"]
     
     return challenges
@@ -18,12 +18,16 @@ def getChallenges():
 @challenges.route('/getLeaderboard')
 @cross_origin()
 def leaderboard():
-    return {}
+    challenge_id = request.args.get("challenge_id")
 
-@challenges.route('/getUserRank')
-@cross_origin()
-def userRank():
-    return {}
+    users = db.users.find({}, {"_id": 0, "name": 1, "challenges_attempted": 1}) # [{"name": "person1", "challenges_attempted": [{"challenge_id": 1, "points": 5, "time_taken": 120, "date_attempted": date1}, {"challenge_id": 2, "points": 6, "time_taken": 60, "date_attempted": date2}]}}, {"name": "person2", "challenges_attempted": [{"challenge_id": 1, "points": 4, "time_taken": 60, "date_attempted": date1}, {"challenge_id": 2, "points": 7, "time_taken": 120, "date_attempted": date2}]}}]
+    user_points = {}
+
+    for user in users: # {"name": "person1", "challenges_attempted": [{"challenge_id": 1, "points": 5, "time_taken": 120, "date_attempted": date1}, {"challenge_id": 2, "points": 6, "time_taken": 60, "date_attempted": date2}]}}
+        challenge_points = [x["points"] for x in user["challenges_attempted"] if x["challenge_id"] == 1][0]
+        user_points[user["name"]] = challenge_points
+    
+    return user_points
 
 @challenges.route('/getQuestions')
 @cross_origin()
@@ -31,7 +35,7 @@ def getQuestions():
     challenge_id = request.args.get("challenge_id")
     difficulty = request.args.get("difficulty")
 
-    return dict(db.challenges.find_one({"challenge_id": challenge_id}))[difficulty]
+    return dict(db.challenges.find_one({"challenge_id": challenge_id}, {"_id": 0, difficulty: 1}))[difficulty]
 
 @challenges.route("/storeUserChallengeResult")
 @cross_origin()
@@ -46,3 +50,6 @@ def storeUserChallengeResult():
                                                                             "points": points,
                                                                             "time_taken": time_taken,
                                                                             "date_attempted": date_attempted}}})
+    db.users.update_one({"name": name}, {"$inc": {"points": points}})
+
+    return {}

@@ -15,7 +15,7 @@ def setAvatar():
     existing_doc = db.users.find({'name': uname})
     if existing_doc:
         db.users.update_one(
-            {'username':uname},
+            {'name':uname},
             {'$set':{'avatar_url':url}}
         )
         return {"success": True}
