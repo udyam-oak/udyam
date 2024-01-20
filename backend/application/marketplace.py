@@ -4,7 +4,11 @@ from .database import mongo
 
 marketplace = Blueprint("marketplace", __name__)
 
+
+db = mongo
+
 @marketplace.route('/getMarketplace')
+@cross_origin()
 def getMarketplace():
     x = db.marketplace.find({}, {'item':1,'price':1,'_id':0})
     y = list(x)
