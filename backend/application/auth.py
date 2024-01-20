@@ -9,15 +9,14 @@ db = mongo.db
 @auth.route("/login", methods=["GET", "POST"])
 @cross_origin()
 def login():
-  if request.method == "POST":
-    name = request.form.get("name")
-    password = request.form.get("password")
-    user = db.users.find_one({"name": name})
+  name = request.args.get("name")
+  password = request.args.get("password")
+  user = db.users.find_one({"name": name})
 
-    if user:
-      if hashpw(password.encode("utf-8"), user["password"]) == user["password"]:
-        return {"success": True}
+  if user:
+    if hashpw(password.encode("utf-8"), user["password"]) == user["password"]:
+      return {"success": True}
       
-      return {"success": False, "error": "Wrong Password"}
+    return {"success": False, "error": "Wrong Password"}
     
-    return {"success": False, "error": "Name not found"}
+  return {"success": False, "error": "Name not found"}
