@@ -5,18 +5,19 @@ from .database import mongo
 
 profile = Blueprint("profile", __name__)
 
-db = mongo
+db = mongo.db
 
 @profile.route('/setAvatar', methods=['GET'])
 @cross_origin()
 def setAvatar():
     url = request.args.get('avatar_url')
     uname = request.args.get('username')
-    existing_doc = db.users.find({'username': uname})
+    existing_doc = db.users.find({'name': uname})
     if existing_doc:
-        return db.users.update_one(
+        db.users.update_one(
             {'username':uname},
             {'$set':{'avatar_url':url}}
         )
+        return {"success": True}
     else:
         return {'error':'Uname Not found in the profiles.'}
