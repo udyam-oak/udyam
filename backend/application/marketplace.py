@@ -4,8 +4,3 @@ from .database import mongo
 
 views = Blueprint("views", __name__)
 db = mongo.db
-
-@views.route('/')
-@cross_origin()
-def home():
-  return {}
