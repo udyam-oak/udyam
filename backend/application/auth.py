@@ -11,7 +11,7 @@ db = mongo.db
 def login():
   name = request.args.get("name")
   password = request.args.get("password")
-  user = db.users.find_one({"name": name})
+  user = db.users.find_one({"name": name}, {"_id": 0, "name": 1, "password": 1})
 
   if user:
     if hashpw(password.encode("utf-8"), user["password"]) == user["password"]:
