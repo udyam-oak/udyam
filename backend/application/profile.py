@@ -14,10 +14,11 @@ def setAvatar():
     uname = request.args.get('username')
     existing_doc = db.users.find({'username': uname})
     if existing_doc:
-        return db.users.update_one(
+        db.users.update_one(
             {'username':uname},
             {'$set':{'avatar_url':url}}
         )
+        return {"success":"Seccesfull"}
     else:
         return {'error':'Uname Not found in the profiles.'}
 
@@ -27,4 +28,5 @@ def setAvatar():
 def getAvatar():
     uname = request.args.get('username')
     return db.find_one({'username': uname}, {'_id': 0, 'avatar_url': 1})
+    
 
