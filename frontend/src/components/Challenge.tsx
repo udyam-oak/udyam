@@ -14,7 +14,7 @@ const Challenge = () => {
       <div className="flex flex-col gap-10 items-center mt-16">
         {Object.entries(challenges).map(([challengeId, value]) => (
           <ChallengeCard
-            key={challengeId}
+            id={challengeId}
             challengeName={value}
             points="+20 pts"
           />
