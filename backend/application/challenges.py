@@ -1,6 +1,7 @@
 from flask import Blueprint, render_template, session, redirect, url_for, request, jsonify
 from flask_cors import cross_origin
 from .database import mongo
+from bson import ObjectId
 
 challenges = Blueprint("challenges", __name__)
 db = mongo.db
@@ -32,10 +33,17 @@ def leaderboard():
 @challenges.route('/getQuestions')
 @cross_origin()
 def getQuestions():
-    challenge_id = request.args.get("challenge_id")
+    challenge_id = int(request.args.get("challenge_id"))
     difficulty = request.args.get("difficulty")
 
-    return dict(db.challenges.find_one({"challenge_id": challenge_id}, {"_id": 0, difficulty: 1}))[difficulty]
+    # Assuming 'challenges' is the name of your collection
+    challenge = db.challenges.find_one({"challenge_id": challenge_id})
+
+    if challenge:
+        questions_by_difficulty = challenge.get(difficulty, {})
+        return jsonify(questions_by_difficulty)
+    else:
+        return jsonify({"error": "Challenge not found"})
 
 @challenges.route("/storeUserChallengeResult")
 @cross_origin()
@@ -50,6 +58,6 @@ def storeUserChallengeResult():
                                                                             "points": points,
                                                                             "time_taken": time_taken,
                                                                             "date_attempted": date_attempted}}})
-    db.users.update_one({"name": name}, {"$inc": {"points": points}})
+    db.users.update_one({"name": name}, {"$inc": {"points": int(points)}})
 
     return {}
