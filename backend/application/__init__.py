@@ -9,10 +9,12 @@ def create_app():
     mongo.init_app(app)
     CORS(app)
 
-    from .views import views
     from .auth import auth
+    from .views import views
+    from .challenges import challenges
 
-    app.register_blueprint(views, url_prefix="/")
     app.register_blueprint(auth, url_prefix="/")
+    app.register_blueprint(views, url_prefix="/")
+    pp.register_blueprint(challenges, url_prefix="/")
 
     return app
