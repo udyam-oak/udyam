@@ -20,3 +20,11 @@ def setAvatar():
         )
     else:
         return {'error':'Uname Not found in the profiles.'}
+
+    
+@profile.route('/getAvatar', methods=['GET'])
+@cross_origin()
+def getAvatar():
+    uname = request.args.get('username')
+    return db.find_one({'username': uname}, {'_id': 0, 'avatar_url': 1})
+
