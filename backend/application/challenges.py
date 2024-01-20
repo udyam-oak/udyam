@@ -39,6 +39,7 @@ def getQuestions():
     # Assuming 'challenges' is the name of your collection
     challenge = db.challenges.find_one({"challenge_id": challenge_id})
 
+
     if challenge:
         questions_by_difficulty = challenge.get(difficulty, {})
         return jsonify(questions_by_difficulty)
