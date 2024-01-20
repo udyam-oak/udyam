@@ -62,19 +62,29 @@ def buy():
     else:
         return jsonify({"message": "Insufficient points or user not found."})
     
-@marketplace.route("/get_user_items", methods=['GET'])
+
+@marketplace.route("/getUserItems", methods=['GET'])
 @cross_origin()
-def get_user_items():
+def get_user_item_count():
     user_name = request.args.get('name')  # Adjust the parameter based on your API design
+    item_name = request.args.get('item')  # Get the name of the item you're interested in
 
     # Fetch the document for the user based on the provided name
     user_document = db.users.find_one({"name": user_name})
 
     # Check if the user document exists
     if user_document:
-        # Get the user's items dictionary
-        user_items = user_document.get("items", {})
+        # Get the user's items list
+        user_items = user_document.get("items", [])
 
-        return jsonify({"user_items": user_items})
+        # Initialize item count to 0
+        item_count = 0
+
+        # Iterate through the user's items and count occurrences of the specified item
+        for item in user_items:
+            if item.get("item") == item_name:
+                item_count += 1
+
+        return jsonify({"item_count": item_count})
     else:
         return jsonify({"message": "User not found."})

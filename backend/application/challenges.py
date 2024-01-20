@@ -54,7 +54,10 @@ def storeUserChallengeResult():
     db.users.update_one({"name": name}, {"$push": {"challenges_attempted": {"challenge_id": challenge_id,
                                                                             "points": points,
                                                                             "time_taken": time_taken,
-                                                                            "date_attempted": date_attempted}}})
+                                                                            "date_attempted": date_attempted}}}
+                                                                            )
+    
+    db.users.update_one({"name": name}, {"$inc": {"total_points": int(points)}})
     return {}
 
 @challenges.route('/calculateTotalPoints', methods=['GET'])
