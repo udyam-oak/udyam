@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import HeatMap from "@uiw/react-heat-map";
 import { useState } from "react";
@@ -8,6 +8,10 @@ import {
   AvatarCreator,
   AvatarExportedEvent,
 } from "@readyplayerme/react-avatar-creator";
+import { useLocalStorage } from "@uidotdev/usehooks";
+import axios from "axios";
+import useAxios from "axios-hooks";
+import Loading from "./Loading";
 
 const value = [
   { date: "2023/01/11", count: 2 },
@@ -34,11 +38,35 @@ const config: AvatarCreatorConfig = {
 const Profile = () => {
   const { id } = useParams();
   const [avatar, setAvatar] = useState("");
+
   const [avatarCreator, setAvatarCreator] = useState(false);
+  const [user, setUser] = useLocalStorage("username", "");
   const onExport = (e: AvatarExportedEvent) => {
     setAvatar(e.data.url);
     setAvatarCreator(false);
   };
+
+  useEffect(() => {
+    axios
+      .get("http://127.0.0.1:5000/getAvatar", {
+        params: {
+          username: id,
+        },
+      })
+      .then((res) => {
+        setAvatar(res.data.avatar_url);
+      });
+  }, []);
+  useEffect(() => {
+    if (id == user && avatar != "") {
+      axios.get("http://127.0.0.1:5000/setAvatar", {
+        params: {
+          avatar_url: avatar,
+          username: user,
+        },
+      });
+    }
+  }, [avatar]);
   return (
     <>
       <div className="flex gap-10 w-screen h-screen justify-center mt-10">
@@ -138,7 +166,7 @@ const Profile = () => {
                 />
               </Avatar>
             )}
-            {!avatar && (
+            {!avatar && id == user && (
               <button
                 onClick={() => setAvatarCreator(true)}
                 className="text-center px-10 py-5 bg-[#E0BBE6]"

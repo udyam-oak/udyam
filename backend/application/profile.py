@@ -1,5 +1,6 @@
 from flask import Blueprint, render_template, session, redirect, url_for, request, jsonify
 from flask_cors import cross_origin
+from collections import Counter
 from .database import mongo
 
 
@@ -15,7 +16,7 @@ def setAvatar():
     existing_doc = db.users.find({'name': uname})
     if existing_doc:
         db.users.update_one(
-            {'username':uname},
+            {'name':uname},
             {'$set':{'avatar_url':url}}
         )
         return {"success": True}
@@ -35,3 +36,13 @@ def getAvatar():
     else:
         return jsonify({'error': 'User not found'}), 404
 
+
+@profile.route("/")
+@cross_origin()
+def getHeatmapData():
+    name = request.args.get("name")
+
+    challenges_attempted = db.users.find_one({"name": name}, {"_id": 0, "challenges_attempted": 1})
+    dates = [challenge["date_attempted"] for challenge in challenges_attempted]
+    heatmap_data = Counter(dates)
+    return dict(heatmap_data)

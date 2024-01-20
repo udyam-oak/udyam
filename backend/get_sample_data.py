@@ -90,6 +90,7 @@ for name, password in user_credentials.items():
   db.users.insert_one({"name": name,
                        "password": hashpw(password.encode("utf-8"), gensalt()),
                        "avatar_url": "",
-                       "challenges_attempted": []})
+                       "challenges_attempted": [],
+                       "total_points": 0})
 
 db.challenges.insert_many(challenges)
