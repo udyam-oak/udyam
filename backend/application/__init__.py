@@ -22,6 +22,6 @@ def create_app():
     app.register_blueprint(challenges, url_prefix="/")
     app.register_blueprint(marketplace, url_prefix="/")
     app.register_blueprint(profile, url_prefix='/')
-    app.register_blueprint(profile, url_prefix='/')
+    app.register_blueprint(teacher, url_prefix='/')
 
     return app
