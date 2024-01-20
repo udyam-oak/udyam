@@ -11,6 +11,7 @@ import Login from "./components/Login.tsx";
 import { Toaster } from "sonner";
 import Question from "./components/Question.tsx";
 import Leaderboard from "./components/Leaderboard.tsx";
+import Marketplacenx from "./components/Marketplacenx.tsx";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
@@ -24,6 +25,7 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
         <Route path="/challenge/:id" element={<Question />} />
         <Route path="/challenge/:id/leaderboard" element={<Leaderboard />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/marketplacenx" element={<Marketplacenx />} />
       </Routes>
       <Toaster position="top-right" />
     </BrowserRouter>
