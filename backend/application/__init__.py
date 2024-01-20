@@ -5,7 +5,7 @@ from .database import mongo
 def create_app():
     app = Flask(__name__)
     app.config["SECRET_KEY"] = "sampleSecretKey"
-    app.config["MONGO_URI"] =  "mongodb+srv://admin:admin@cluster0.7jz4qws.mongodb.net/" # "mongodb://localhost:27017/udyam"
+    app.config["MONGO_URI"] =  "mongodb://localhost:27017/udyam"
     mongo.init_app(app)
     CORS(app)
 
