@@ -23,24 +23,11 @@ const Question = () => {
       .get("http://127.0.0.1:5000/getQuestions", {
         params: {
           challenge_id: id,
-          difficulty: diff,
         },
       })
       .then((res) => {
         setQuestion(res.data);
       });
-  };
-
-  // Step 2: Implement the onChange event handler
-  const handleSelectChange = (event) => {
-    // Step 3: Update the state when the selection changes
-    setDiff(event.target.value);
-  };
-  const onSubmit = (e) => {
-    e.preventDefault();
-    getData();
-    setShowDiff(false);
-    setRuning(true);
   };
 
   const onSubmitAnswer = (e) => {
@@ -99,24 +86,8 @@ const Question = () => {
   return (
     <div className="flex w-screen justify-center items-center mt-10 flex-col">
       <div className="">
-        {showDiff && (
-          <form action="" className="flex flex-col gap-4" onSubmit={onSubmit}>
-            <select
-              id="selectInput"
-              value={diff}
-              onChange={handleSelectChange}
-              className="px-10 py-5"
-            >
-              <option value="">Select...</option>
-              <option value="easy">Easy</option>
-              <option value="medium">Medium</option>
-              <option value="hard">Hard</option>
-            </select>
-            <button className="px-10 py-5 bg-[#EBEBEB]">Submit</button>
-          </form>
-        )}
         <div className="w-[1000px]">
-          {!showDiff && q < Object.keys(question).length && (
+          {q < Object.keys(question).length && (
             <form
               action=""
               onSubmit={onSubmitAnswer}

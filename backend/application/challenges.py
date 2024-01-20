@@ -1,4 +1,4 @@
-from flask import Blueprint, request, jsonify
+from flask import Blueprint, render_template, session, redirect, url_for, request, jsonify
 from flask_cors import cross_origin
 from .database import mongo
 from bson import ObjectId
@@ -35,10 +35,9 @@ def leaderboard():
 def getQuestions():
     challenge_id = int(request.args.get("challenge_id"))
     difficulty = request.args.get("difficulty")
-    
+
     # Assuming 'challenges' is the name of your collection
     challenge = db.challenges.find_one({"challenge_id": challenge_id})
-
 
     if challenge:
         questions_by_difficulty = challenge.get(difficulty, {})
@@ -59,6 +58,8 @@ def storeUserChallengeResult():
                                                                             "points": points,
                                                                             "time_taken": time_taken,
                                                                             "date_attempted": date_attempted}}})
+    return {}
+
 @challenges.route('/calculateTotalPoints', methods=['GET'])
 @cross_origin()
 def calculateTotal():
@@ -70,6 +71,9 @@ def calculateTotal():
     multiplier = request.args.get('multiplier_activated')
     total_questions = 10
     points_per_question = 5
+    if num_of_correct_answers == 0:
+        return {"points": 0}
+    
     average_time_per_question = total_time_taken / total_questions
 
     time_weight = 1 + (total_time_taken / (num_of_correct_answers * average_time_per_question))
@@ -93,9 +97,7 @@ def calculateTotal():
             upsert=False
         )
 
-        return total_points
+        return {"points": total_points}
     else:
         print("User not found.")
         return {"error":"error"}
-
-

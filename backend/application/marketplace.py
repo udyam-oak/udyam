@@ -4,8 +4,19 @@ from .database import mongo
 
 marketplace = Blueprint("marketplace", __name__)
 
-db = mongo
+db = mongo.db
 
+
+# helper
+def getPointsHelp(user):
+    uname = user
+    document = db.users.find_one({"name": uname})
+
+    if document:
+        points_value = int(document["total_points"])
+        return points_value
+    else:
+        return -1
 @marketplace.route('/getMarketplace')
 @cross_origin()
 def getMarketplace():
@@ -17,28 +28,21 @@ def getMarketplace():
 @marketplace.route('/getPoints')
 @cross_origin()
 def getPoints():
-    uname = request.args.get('name')
-    document = db.students.find_one({"name": uname})
-
-    if document:
-        points_value = int(document["points"])
-        return points_value
-    else:
-        return {"error":"Points not found."}
+    return {"points": getPointsHelp(request.args.get('name'))}
 
 @marketplace.route("/buy", methods=['GET'])
 @cross_origin()
 def buy():
     uname = request.args.get('name')
-    points = request.args.get('points')
+    points = getPointsHelp(uname) 
     item = request.args.get('item')
-    if points >= item['price']:
-        user_document = db.users.find_one({"name": uname})  # Replace "Yuvi" with your user identification logic
+    price = int(request.args.get('price'))
+    user_document = db.users.find_one({"name": uname})  # Replace "Yuvi" with your user identification logic
 
     # Check if the user document exists and if points are sufficient to buy the item
-    if user_document and points >= item['price']:
+    if user_document and points >= price:
         # Define the new item to be added to the "items" dictionary
-        new_item = {"item": item['item'], "price": item['price']}  # Assuming 'price' is a key in the 'item' dictionary
+        new_item = {"item": item, "price": price}  # Assuming 'price' is a key in the 'item' dictionary
 
         # Update the "items" dictionary in the user document
         db.users.update_one(
@@ -46,9 +50,31 @@ def buy():
             {"$push": {"items": new_item}},
             upsert=False
         )
+        
+        new_points = points - price
 
+        db.users.update_one(
+            {"name": uname},  # Replace "Yuvi" with your user identification logic
+            {"$set": {"total_points": new_points}}
+                        )
+        
         return jsonify({"message": "Item purchased successfully."})
     else:
         return jsonify({"message": "Insufficient points or user not found."})
-
     
+@marketplace.route("/get_user_items", methods=['GET'])
+@cross_origin()
+def get_user_items():
+    user_name = request.args.get('name')  # Adjust the parameter based on your API design
+
+    # Fetch the document for the user based on the provided name
+    user_document = db.users.find_one({"name": user_name})
+
+    # Check if the user document exists
+    if user_document:
+        # Get the user's items dictionary
+        user_items = user_document.get("items", {})
+
+        return jsonify({"user_items": user_items})
+    else:
+        return jsonify({"message": "User not found."})
