@@ -27,5 +27,11 @@ def setAvatar():
 @cross_origin()
 def getAvatar():
     uname = request.args.get('username')
-    return db.find_one({'username': uname}, {'_id': 0, 'avatar_url': 1})
+    
+    user = db.users.find_one({'name': uname}, {'_id': 0, 'avatar_url': 1})
+
+    if user:
+        return jsonify({'avatar_url': user['avatar_url']})
+    else:
+        return jsonify({'error': 'User not found'}), 404
 
