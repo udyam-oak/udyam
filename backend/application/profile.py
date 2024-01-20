@@ -20,5 +20,3 @@ def setAvatar():
         )
     else:
         return {'error':'Uname Not found in the profiles.'}
-
-    
