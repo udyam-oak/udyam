@@ -37,12 +37,10 @@ def getQuestions():
     difficulty = request.args.get("difficulty")
     
     # Assuming 'challenges' is the name of your collection
-    challenge = db.challenges.find_one({"challenge_id": challenge_id})
-
+    challenge = db.challenges.find_one({"challenge_id": challenge_id}, {"questions": 1, "_id": 0})
 
     if challenge:
-        questions_by_difficulty = challenge.get(difficulty, {})
-        return jsonify(questions_by_difficulty)
+        return jsonify(challenge["questions"])
     else:
         return jsonify({"error": "Challenge not found"})
 
