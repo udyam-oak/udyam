@@ -9,4 +9,4 @@ db = mongo.db
 @auth.route("/account")
 @cross_origin()
 def account():
-    return {"text": "Account Page"}
+  return {"text": "account"}
