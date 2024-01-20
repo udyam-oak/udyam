@@ -9,6 +9,7 @@ import Navbar from "./components/Navbar.tsx";
 import Profile from "./components/Profile.tsx";
 import Login from "./components/Login.tsx";
 import { Toaster } from "sonner";
+import Marketplacenx from "./components/Marketplacenx.tsx";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
@@ -20,6 +21,7 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
         <Route path="/marketplace" element={<Marketplace />} />
         <Route path="/user/:id" element={<Profile />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/marketplacenx" element={<Marketplacenx />} />
       </Routes>
       <Toaster position="top-right" />
     </BrowserRouter>
