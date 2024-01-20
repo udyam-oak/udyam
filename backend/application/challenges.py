@@ -35,7 +35,7 @@ def leaderboard():
 def getQuestions():
     challenge_id = int(request.args.get("challenge_id"))
     difficulty = request.args.get("difficulty")
-
+    
     # Assuming 'challenges' is the name of your collection
     challenge = db.challenges.find_one({"challenge_id": challenge_id})
 
@@ -58,7 +58,6 @@ def storeUserChallengeResult():
                                                                             "points": points,
                                                                             "time_taken": time_taken,
                                                                             "date_attempted": date_attempted}}})
-
 @challenges.route('/calculateTotalPoints', methods=['GET'])
 @cross_origin()
 def calculateTotal():
@@ -99,4 +98,3 @@ def calculateTotal():
         return {"error":"error"}
 
 
-   
