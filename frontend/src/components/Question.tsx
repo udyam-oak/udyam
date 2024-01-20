@@ -8,11 +8,10 @@ import { useLocalStorage } from "@uidotdev/usehooks";
 const Question = () => {
   const { id } = useParams();
   const [question, setQuestion] = useState({});
-  const [diff, setDiff] = useState();
   const [input, setInput] = useState("");
-  const [showDiff, setShowDiff] = useState(true);
   const [score, setScore] = useState(0);
   const [q, setQ] = useState(0);
+  const [points, setPoints] = useState(0);
 
   const [time, setTime] = useState(0);
   const [isRunning, setRuning] = useState(false);
@@ -61,6 +60,18 @@ const Question = () => {
     return formattedDate;
   }
   const sendData = () => {
+    axios
+      .get("http://127.0.0.1:5000/calculateTotalPoints", {
+        params: {
+          name: user,
+          num_correct_answers: score,
+          total_time_taken: time,
+          multiplier_activated: false,
+        },
+      })
+      .then((res) => {
+        setPoints(res.data.points);
+      });
     axios.get("http://127.0.0.1:5000/storeUserChallengeResult", {
       params: {
         challenge_id: id,
@@ -83,6 +94,10 @@ const Question = () => {
     // Clean up the interval when the component unmounts or when the stopwatch is stopped
     return () => clearInterval(intervalId);
   }, [isRunning]);
+  useEffect(() => {
+    getData();
+    setRuning(true);
+  }, []);
   return (
     <div className="flex w-screen justify-center items-center mt-10 flex-col">
       <div className="">
