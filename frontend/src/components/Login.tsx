@@ -2,11 +2,25 @@ import React, { useEffect, useState } from "react";
 import useAxios from "axios-hooks";
 import axios from "axios";
 import { toast } from "sonner";
+import { useNavigate } from "react-router-dom";
+import { useLocalStorage } from "@uidotdev/usehooks";
 
 const Login = () => {
   const [username, setUsername] = useState("");
   const [passwd, setPasswd] = useState("");
   const [data, setData] = useState(false);
+  const [user, setUser] = useLocalStorage("username", "");
+  const nav = useNavigate();
+  useEffect(() => {
+    if (data) {
+      setUser(username);
+    }
+  }, [data]);
+  useEffect(() => {
+    if (user != "") {
+      nav("/challenge");
+    }
+  }, [user]);
   const onSubmit = (e) => {
     e.preventDefault();
     axios
@@ -18,8 +32,11 @@ const Login = () => {
       })
       .then((res) => {
         if (res.data.success) {
-          toast("Correct");
+          toast.success("Logging in", { duration: 1000 });
+        } else {
+          toast.error("Wrong password");
         }
+        setData(res.data.success);
         console.log(res.data);
       });
   };

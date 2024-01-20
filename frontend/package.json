@@ -12,6 +12,7 @@
   "dependencies": {
     "@readyplayerme/react-avatar-creator": "^0.4.0",
     "@readyplayerme/visage": "^5.0.0",
+    "@uidotdev/usehooks": "^2.4.1",
     "@uiw/react-heat-map": "^2.2.1",
     "axios": "^1.6.5",
     "axios-hooks": "^5.0.2",
