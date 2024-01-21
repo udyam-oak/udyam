@@ -51,15 +51,11 @@ const Question = () => {
   useEffect(() => {
     if (coinB > 0) {
       setMulti(2);
-    } else {
-      toast.error("You don't have any");
     }
   }, [coinB]);
   useEffect(() => {
     if (insuC > 0) {
       setInsuC(true);
-    } else {
-      toast.error("You don't have any");
     }
   }, [insuC]);
   const getData = () => {
