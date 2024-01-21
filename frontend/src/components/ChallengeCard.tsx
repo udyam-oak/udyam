@@ -16,9 +16,9 @@ const ChallengeCard = ({ challengeName, points, id }) => {
           >
             Attempt
           </Link>
-          <button className="p-4 bg-[#7D538D] mt-2 text-white rounded-xl hover:bg-[#BA68C8] duration-300">
+          {/* <button className="p-4 bg-[#7D538D] mt-2 text-white rounded-xl hover:bg-[#BA68C8] duration-300">
             Leaderboard
-          </button>
+          </button> */}
         </div>
       </div>
     </>
