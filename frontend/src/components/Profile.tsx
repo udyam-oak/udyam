@@ -38,7 +38,7 @@ const config: AvatarCreatorConfig = {
 const Profile = () => {
   const { id } = useParams();
   const [avatar, setAvatar] = useState("");
-
+  const [points, setPoints] = useState(0);
   const [avatarCreator, setAvatarCreator] = useState(false);
   const [user, setUser] = useLocalStorage("username", "");
   const onExport = (e: AvatarExportedEvent) => {
@@ -55,6 +55,15 @@ const Profile = () => {
       })
       .then((res) => {
         setAvatar(res.data.avatar_url);
+      });
+    axios
+      .get("http://127.0.0.1:5000/getPoints", {
+        params: {
+          name: user,
+        },
+      })
+      .then((res) => {
+        setPoints(res.data.points);
       });
   }, []);
   useEffect(() => {
@@ -195,19 +204,14 @@ const Profile = () => {
           <div className="text-center font text-2xl font-bold">{id}</div>
           {!avatarCreator && (
             <div className="flex justify-around">
-              {!avatarCreator}
-              <div>
-                Points
-                <div className="bg-[#EBEBEB] w-[150px] h-[50px] text-center flex items-center justify-center rounded drop-shadow-sm text-4xl">
-                  1225
+              {!avatarCreator && (
+                <div>
+                  Points
+                  <div className="bg-[#EBEBEB] w-[150px] h-[50px] text-center flex items-center justify-center rounded drop-shadow-sm text-4xl">
+                    {points}
+                  </div>
                 </div>
-              </div>
-              <div>
-                Rating
-                <div className="bg-[#EBEBEB] w-[150px] h-[50px] text-center flex items-center justify-center rounded drop-shadow-sm text-4xl">
-                  1225
-                </div>
-              </div>
+              )}
             </div>
           )}
         </div>

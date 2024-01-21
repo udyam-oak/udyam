@@ -17,7 +17,11 @@ const Marketplace = () => {
         <span className="text-5xl">Power-Ups</span>
         <div className="flex flex-wrap items-center justify-center">
           {Object.entries(items).map(([key, value]) => (
-            <MarketplaceCard cardname={key} price={value} image="" />
+            <MarketplaceCard
+              cardname={key}
+              price={value}
+              image={`src/assets/${key}.png`}
+            />
           ))}
         </div>
         <Link to={"/marketplacenx"}>
