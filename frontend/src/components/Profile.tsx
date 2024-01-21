@@ -10,8 +10,8 @@ import {
 } from "@readyplayerme/react-avatar-creator";
 import { useLocalStorage } from "@uidotdev/usehooks";
 import axios from "axios";
-import useAxios from "axios-hooks";
-import Loading from "./Loading";
+import streak from "../assets/streak.png";
+import bb from "../assets/bb.png";
 
 const value = [
   { date: "2023/01/11", count: 2 },
@@ -216,7 +216,7 @@ const Profile = () => {
           )}
         </div>
         <div>
-          <div className="font-medium pb-10 flex flex-col gap-4">
+          <div className="font-medium pb-10 flex flex-col gap-4 text-xl">
             Challenges yearly review
             <HeatMap
               value={value}
@@ -234,7 +234,13 @@ const Profile = () => {
               }}
             />
           </div>
-          <div>Badges</div>
+          <div>
+            <h1 className="text-xl font-medium">Achievements</h1>
+            <div className="flex gap-4">
+              <img src={streak} />
+              <img src={bb} />
+            </div>
+          </div>
         </div>
       </div>
     </>
