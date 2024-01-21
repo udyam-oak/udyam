@@ -174,6 +174,7 @@ const Question = () => {
                 <div className="text-2xl">
                   You Completed it {score}/{Object.keys(question).length}
                   <br />
+                  <span>Points Gained: </span>
                   {5 * score * multiplier}
                 </div>
                 <div>Time taken {time}</div>

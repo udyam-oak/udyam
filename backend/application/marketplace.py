@@ -58,9 +58,9 @@ def buy():
             {"$set": {"total_points": new_points}}
                         )
         
-        return jsonify({"message": "Item purchased successfully."})
+        return jsonify({"message": True})
     else:
-        return jsonify({"message": "Insufficient points or user not found."})
+        return jsonify({"message": False})
     
 
 @marketplace.route("/getUserItems", methods=['GET'])
