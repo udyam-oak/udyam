@@ -34,6 +34,10 @@ const Question = () => {
       .then((res) => {
         setInsuC(res.data.item_count);
       });
+    toast.success("You have two tries for this question");
+    if (insuC > 0) {
+      setInsur(true);
+    }
   };
   const coinBoost = () => {
     axios
@@ -53,11 +57,6 @@ const Question = () => {
       setMulti(2);
     }
   }, [coinB]);
-  useEffect(() => {
-    if (insuC > 0) {
-      setInsuC(true);
-    }
-  }, [insuC]);
   const getData = () => {
     axios
       .get("http://127.0.0.1:5000/getQuestions", {
