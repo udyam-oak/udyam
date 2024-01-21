@@ -37,16 +37,16 @@ def buy():
     points = getPointsHelp(uname) 
     item = request.args.get('item')
     price = int(request.args.get('price'))
-    user_document = db.users.find_one({"name": uname})  # Replace "Yuvi" with your user identification logic
+    user_document = db.users.find_one({"name": uname})  
 
     # Check if the user document exists and if points are sufficient to buy the item
     if user_document and points >= price:
         # Define the new item to be added to the "items" dictionary
-        new_item = {"item": item, "price": price}  # Assuming 'price' is a key in the 'item' dictionary
+        new_item = {"item": item, "price": price}  
 
         # Update the "items" dictionary in the user document
         db.users.update_one(
-            {"name": uname},  # Replace "Yuvi" with your user identification logic
+            {"name": uname}, 
             {"$push": {"items": new_item}},
             upsert=False
         )
@@ -54,7 +54,7 @@ def buy():
         new_points = points - price
 
         db.users.update_one(
-            {"name": uname},  # Replace "Yuvi" with your user identification logic
+            {"name": uname},
             {"$set": {"total_points": new_points}}
                         )
         
