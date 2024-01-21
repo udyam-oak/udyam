@@ -68,6 +68,15 @@ challenges = [
   }
 ]
 
+powerups = [{
+  "item": "coin_booster",
+  "price": 200
+},
+{
+  "item": "insurance",
+  "price": 300
+}]
+
 from pymongo import MongoClient
 from bcrypt import hashpw, gensalt
 
@@ -78,7 +87,8 @@ for name, password in students.items():
                        "password": hashpw(password.encode("utf-8"), gensalt()),
                        "avatar_url": "",
                        "challenges_attempted": [],
-                       "total_points": 0})
+                       "total_points": 0,
+                       "items": []})
 
 
 db.teachers.insert_one({"name": "Ruchi",
@@ -87,5 +97,7 @@ db.teachers.insert_one({"name": "Ruchi",
 db.teachers.insert_one({"name": "Rajashekhar",
                         "password": hashpw(teachers["Rajashekhar"].encode("utf-8"), gensalt()),
                         "challenges_created": [1, 3]})
+
+db.marketplace.insert_many(powerups)
 
 db.challenges.insert_many(challenges)

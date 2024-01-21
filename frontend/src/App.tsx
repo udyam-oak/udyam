@@ -14,11 +14,7 @@ function App() {
             UD<span className="text-[#263238]">YAM</span>{" "}
           </span>
           <span className="text-white">
-            Lorem ipsum dolor, sit amet consectetur adipisicing elit.
-            <br /> Cum, cupiditate. Rerum ab tempora dolore ad, repudiandae
-            <br />
-            nisi suscipit facere voluptate ducimus accusamus amet, itaque
-            <br /> consequatur necessitatibus exercitationem sunt fugiat fugit!
+            Udyam is an innovative academic platform designed to elevate student<br/> performance through gamification, making learning a dynamic and <br/>engaging experience. By seamlessly integrating gamified elements, <br/> Udyam transforms the educational journey into an interactive adventure,<br/> motivating students to excel..
           </span>
           <div className=" text-white">
             <Link to={"/user/" + user}>

@@ -47,7 +47,7 @@ def getQuestions():
 def storeUserChallengeResult():
     challenge_id = request.args.get("challenge_id")
     name = request.args.get("name")
-    points = request.args.get("points")
+    points = 10*int(request.args.get("points"))
     time_taken = request.args.get("time_taken")
     date_attempted = request.args.get("date_attempted")
 
