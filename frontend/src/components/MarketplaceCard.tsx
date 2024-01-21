@@ -1,17 +1,26 @@
 import React from "react";
 import axios from "axios";
 import { useLocalStorage } from "@uidotdev/usehooks";
+import { toast } from "sonner";
 
 const MarketplaceCard = ({ image, cardname, price }) => {
   const [user, setUser] = useLocalStorage("username", "");
   const onClick = () => {
-    axios.get("http://127.0.0.1:5000/buy", {
-      params: {
-        name: user,
-        item: cardname,
-        price: price,
-      },
-    });
+    axios
+      .get("http://127.0.0.1:5000/buy", {
+        params: {
+          name: user,
+          item: cardname,
+          price: price,
+        },
+      })
+      .then((res) => {
+        if (res.data.message) {
+          toast.success(`Bought ${cardname}`);
+        } else {
+          toast.error(`Insufficient points`);
+        }
+      });
   };
   return (
     <>

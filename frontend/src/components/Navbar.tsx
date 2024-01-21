@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useLocalStorage } from "@uidotdev/usehooks";
+import logo from "../assets/analyzer.png";
 const Navbar = () => {
   const [user, setUser] = useLocalStorage("username", "");
   const nav = useNavigate();
@@ -14,7 +15,7 @@ const Navbar = () => {
     <>
       <nav className="flex items-center justify-between text-black h-14 font-poppins">
         <div className="flex items-center">
-          <img className="mx-3 w-10" src="src\assets\analyzer.png" />
+          <img className="mx-3 w-10" src={logo} />
           <span className="font-bold text-xl text-[#263238]">UDYAM</span>
         </div>
         <ul className="flex">

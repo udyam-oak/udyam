@@ -236,9 +236,15 @@ const Profile = () => {
           </div>
           <div>
             <h1 className="text-xl font-medium">Achievements</h1>
-            <div className="flex gap-4">
-              <img src={streak} />
-              <img src={bb} />
+            <div className="flex gap-4 flex-col">
+              <div className="flex items-center gap-2">
+                <img src={streak} />
+                Participated in a camping workshop
+              </div>
+              <div className="flex items-center">
+                <img src={bb} />
+                Won in the sfa basketball tournament
+              </div>
             </div>
           </div>
         </div>
